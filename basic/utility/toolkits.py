@@ -633,6 +633,7 @@ def getSpectralcuve(h,w):
     noise_linear = noise[h,w,:]
     gt_linear = gt[h,w,:]
     
+    
     draw_spectral_cuve(noise_linear,gt_linear)
     
     
