@@ -1,0 +1,44 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: 当前文件",
+            "type": "python",
+            "python":"/home/jiahua/anaconda3/envs/py39/bin/python3.9",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true
+            
+        },
+        {
+            "name":"train",
+            "type":"python",
+            "request": "launch",
+            "python":"/home/jiahua/anaconda3/envs/py39/bin/python3.9",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": [
+                "-method","mmd",
+                "-mode","train"
+            ]
+        },
+        {
+            "name":"erf",
+            "type":"python",
+            "request": "launch",
+            "python":"/home/jiahua/anaconda3/envs/py39/bin/python3.9",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": [     
+                "--model","sst",
+                "--weights","/home/jiahua/HSID/checkpoints/compare_methods_icvl_complex/sst_complex.pth",
+                "--data_path","/data3/jiahua/ly/test_data/kaist_1024_complex/erf_test/",
+                "--save_path","/home/jiahua/HSID/basic/erf/erf_model/sst.npy"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,57 @@
+# general settings for HSI denoising training
+name: Mambad_basic_hsid
+arch: mmd
+prefix: mmd_blind_3e4_0.68
+mode: train
+
+# net settings
+gpu_ids: 4
+batchSize: 8
+lr: !!float 3e-4
+cpu: False
+manual_seed: 2018
+threads: 1
+
+# test settings  /data3/jiahua/ly/test_data/kaist_1024_complex/1024_deadline
+testDir: /data3/jiahua/ly/test_data/icvl_test_gaussian/512_10/
+
+# training settings
+train:
+  total_epochs: 110
+  checkpoints_per_save: 10
+  Datasets: 
+    type: icvl
+    trainDir: /data3/jiahua/ly/train_data/icvl_train/train.db/
+    valDir: /data3/jiahua/ly/test_data/icvl_test_gaussian/512_70/
+    val_matSize: 5
+  scheduler:
+    type: MultiStepLR
+    # milestones: [0 , 40 , 80]
+    # gammas: [1 , 0.5 , 0.1]
+
+    milestones: [0,20,50,80,110]
+    gammas: [1,0.5,0.1,0.05,0.01]
+  
+  multiDatasets:
+    type: False
+    noiseType: ['gaussian','blind','complex']
+    stones: [30,80,110]
+
+  
+  resume_opt:
+    resume: False
+    resumePath: /data3/jiahua/fidnet_cmp_checkpoints/mmd/mmd_blind_3e4/model_best.pth
+
+  optim_g:
+    type: Adam
+    weight_decay: 0
+    betas: [0.9, 0.99]
+
+  loss_opt:
+    type: l2 # ['l1', 'l2', 'smooth_l1', 'ssim', 'l2_ssim','l2_sam','cons','cons_l2','char','fidloss']
+    loss_weight: 1.0 
+    reduction: mean
+
+  clip: !!float 1e6
+  noiseType: noniid # ['gaussian','complex','noniid','mixture']
+  save_path: /data3/jiahua/fidnet_cmp_checkpoints

@@ -1,0 +1,49 @@
+# general settings for HSI denoising training
+name: hsid_test
+arch: sert_base
+prefix: test
+mode: train
+
+# net settings
+gpu_ids: 0
+batchSize: 8
+lr: !!float 2e-4
+cpu: False
+manual_seed: 2018
+threads: 1
+
+# test settings
+testDir: /data3/jiahua/ly/test_data/icvl_test_complex/512_mixture/
+
+# training settings
+train:
+  total_epochs: 90
+  checkpoints_per_save: 10
+  Datasets: 
+    type: icvl
+    trainDir: /data3/jiahua/ly/train_data/icvl_train/train.db/
+    valDir: /data3/jiahua/ly/test_data/cave_test_complex/512_mixture/
+    val_matSize: 5
+  scheduler:
+    type: MultiStepLR
+    milestones: [0 , 40 , 80]
+    gammas: [1 , 0.5 , 0.1]
+  
+  
+  resume_opt:
+    resume: True
+    resumePath: /home/jiahua/HSI-CVPR/hsid/checkpoints/compare_methods_icvl_complex/sert_base_complex.pth
+
+  optim_g:
+    type: Adam
+    weight_decay: 0
+    betas: [0.9, 0.99]
+
+  loss_opt:
+    type: l2 # ['l1', 'l2', 'smooth_l1', 'ssim', 'l2_ssim','l2_sam','cons','cons_l2','char','fidloss']
+    loss_weight: 1.0 
+    reduction: mean
+
+  clip: !!float 1e6
+  noiseType: complex # ['gaussian','complex','noniid','mixture']
+  save_path: /data3/jiahua/fidnet_cmp_checkpoints
