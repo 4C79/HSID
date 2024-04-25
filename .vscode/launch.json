@@ -27,6 +27,18 @@
             ]
         },
         {
+            "name":"test",
+            "type":"python",
+            "request": "launch",
+            "python":"/home/jiahua/anaconda3/envs/py39/bin/python3.9",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": [
+                "-method","mmd",
+                "-mode","test"
+            ]
+        },
+        {
             "name":"erf",
             "type":"python",
             "request": "launch",

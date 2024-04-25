@@ -11,8 +11,34 @@ from timm.models.layers import DropPath, to_2tuple, trunc_normal_
 from mamba_ssm.ops.selective_scan_interface import selective_scan_fn, selective_scan_ref
 from einops import rearrange, repeat
 
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 import numpy as np
+
+def minmax_normalize(array):    
+    amin = np.min(array)
+    amax = np.max(array)
+    return (array - amin) / (amax - amin)
+
+def draw_numbers(x):
+    b,c,h,w = x.shape
+    result = x.squeeze(0)
+    # result = result.sum(dim=0)
+    result = result.to('cpu')
+    result = result.numpy()
+    # result = minmax_normalize(result)
+    
+    for i in range(len(result)):
+        # 绘制热图
+        plt.imshow(result[i,:,:], cmap='Reds', interpolation='nearest')
+        plt.title('Attention Map Sum')
+        plt.colorbar()  # 添加颜色条
+
+        plt.savefig('/home/jiahua/HSID/result/hotmap/'+str(i)+'hotmap.png',bbox_inches='tight', pad_inches=0,dpi=300)
+        plt.close()
+
+    return None
 
 
 NEG_INF = -1000000
@@ -1244,6 +1270,8 @@ class MambaDe(nn.Module):
 
         x = self.norm(x)  # b seq_len c
         x = self.patch_unembed(x, x_size)
+        
+        # draw_numbers(x)
 
         return x
 
@@ -1408,6 +1436,7 @@ class ResidualGroup(nn.Module):
         super(ResidualGroup, self).__init__()
 
         self.dim = dim
+        self.depth = depth
         self.input_resolution = input_resolution # [64, 64]
 
         self.residual_group = BasicLayer(

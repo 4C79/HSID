@@ -1,11 +1,11 @@
 # general settings for HSI denoising training
 name: Mambad_basic_hsid
 arch: mmd
-prefix: mmd_test
+prefix: mmd_2M_3e4_96
 mode: train
 
 # net settings
-gpu_ids: 4
+gpu_ids: 5
 batchSize: 8
 lr: !!float 3e-4
 cpu: False

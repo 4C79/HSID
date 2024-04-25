@@ -48,6 +48,29 @@ def get_2048_from_1024_batch():
         result_gt = minmax_normalize(result_gt)
         result_gt = result_gt*255
         cv2.imwrite(os.path.join(new_path,rect[:-12]+'.png'),result_gt)
+        
+# get different noise picture from direct image name of CAVE datasers
+def save_noise(name):
+    noise_folder = ['/data3/jiahua/ly/test_data/cave_test_complex/512_stripe',
+                    '/data3/jiahua/ly/test_data/cave_test_complex/512_noniid',
+                    '/data3/jiahua/ly/test_data/cave_test_complex/512_mixture',
+                    '/data3/jiahua/ly/test_data/cave_test_complex/512_impulse',
+                    '/data3/jiahua/ly/test_data/cave_test_complex/512_deadline',
+                    '/data3/jiahua/ly/test_data/cave_added_noise/512_speckle',
+                    '/data3/jiahua/ly/test_data/cave_added_noise/512_poisson'
+                    ]
+    for noise in noise_folder:
+        
+        img = loadmat(os.path.join(noise,name))
+        # print(img.keys())
+        gt = img['gt'][...]
+        noisy = img['input'][...]
+        gt = gt[217:377,258:418,:]
+        noisy = noisy[217:377,258:418,:]
+        noise_type = noise.split('_')[-1]
+        _name = name.split('.')[0]
+        spectral.save_rgb("/home/jiahua/HSID/result/noise_exp/"+_name+'_gt.png',gt,bands=(29,19,9))
+        spectral.save_rgb("/home/jiahua/HSID/result/noise_exp/"+_name+'_'+noise_type+".png",noisy,bands=(29,19,9))
 
 def get_rgb():
 
@@ -645,7 +668,8 @@ def getSpectralcuve(h,w):
 
 if __name__ == '__main__':
     
-    getSpectralcuve(0,0)
+    # getSpectralcuve(0,0)
+    save_noise('flowers_ms.mat')
     
     # get_rgb()
     # drawRect('cave',1)

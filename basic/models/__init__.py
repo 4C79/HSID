@@ -97,7 +97,7 @@ def mmd():
         img_size=64,
         patch_size=1,
         in_chans=31,
-        embed_dim=48,
+        embed_dim=92,
         depths=(4,4,4),
         drop_rate=0.,
         d_state = 16,
