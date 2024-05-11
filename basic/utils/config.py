@@ -169,8 +169,8 @@ class build_model(object):
         for batch_idx, (inputs, targets) in enumerate(train_loader):
             if batch_idx == 0:
                 train_h,train_w = inputs.shape[2],inputs.shape[3]
-                self.zig_path = zigzag_path(train_h)
-                self.zig_back = [reverse_permut_np(_) for _ in self.zig_path]
+                self.zig_path = torch.from_numpy(np.array(zigzag_path(train_h))).to(self.device)
+                self.zig_back = torch.from_numpy(np.array([reverse_permut_np(_) for _ in self.zig_path])).to(self.device)
             
             if not self.opt['cpu']:
                 inputs, targets = inputs.to(self.device), targets.to(self.device)  
@@ -209,8 +209,8 @@ class build_model(object):
                 inputs, targets = inputs.to(self.device), targets.to(self.device)
                 if batch_idx == 0:
                     train_h,train_w = inputs.shape[2],inputs.shape[3]
-                    self.zig_path = zigzag_path(train_h)
-                    self.zig_back = [reverse_permut_np(_) for _ in self.zig_path]
+                    self.zig_path = torch.from_numpy(np.array(zigzag_path(train_h))).to(self.device)
+                    self.zig_back = torch.from_numpy(np.array([reverse_permut_np(_) for _ in self.zig_path])).to(self.device)
                 
                 if batch_idx == -1:
 
@@ -316,8 +316,8 @@ class build_model(object):
                 
                 if batch_idx == 0:
                     train_h,train_w = inputs.shape[2],inputs.shape[3]
-                    self.zig_path = zigzag_path(train_h)
-                    self.zig_back = [reverse_permut_np(_) for _ in self.zig_path]
+                    self.zig_path = torch.from_numpy(np.array(zigzag_path(train_h))).to(self.device)
+                    self.zig_back = torch.from_numpy(np.array([reverse_permut_np(_) for _ in self.zig_path])).to(self.device)
                     
                 if not self.opt['cpu']:
                     inputs, targets = inputs.to(self.device), targets.to(self.device)

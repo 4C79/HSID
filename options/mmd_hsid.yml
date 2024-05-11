@@ -1,19 +1,19 @@
 # general settings for HSI denoising training
 name: Mambad_basic_hsid
 arch: mmd
-prefix: mmd_2M_3e4_96
+prefix: mmd_muli_2e4
 mode: train
 
 # net settings
-gpu_ids: 5
+gpu_ids: 1
 batchSize: 8
-lr: !!float 3e-4
+lr: !!float 2e-4
 cpu: False
 manual_seed: 2018
 threads: 1
 
 # test settings  /data3/jiahua/ly/test_data/kaist_1024_complex/1024_deadline
-testDir: /data3/jiahua/ly/test_data/icvl_test_complex/512_mixture
+testDir: /data3/jiahua/ly/test_data/icvl_added_noise/512_blind_gaussian
 
 # training settings
 train:
@@ -30,18 +30,18 @@ train:
     # milestones: [0 , 40 , 80]
     # gammas: [1 , 0.5 , 0.1]
 
-    milestones: [0,20,50,80,110]
-    gammas: [1,0.5,0.1,0.05,0.01]
+    milestones: [0,10,20,30,40,50,60,70,80,110]
+    gammas: [1,0.5,0.1,1,0.5,0.1,1,0.5,0.1]
   
   multiDatasets:
-    type: False
+    type: True
     noiseType: ['gaussian','blind','complex']
-    stones: [30,80,110]
+    stones: [30,60,110]
 
   
   resume_opt:
     resume: False
-    resumePath: /data3/jiahua/fidnet_cmp_checkpoints/mmd/mmd_8_2stage_back_conv1/model_best.pth
+    resumePath: /home/jiahua/HSID/checkpoints/compare_methods_icvl_gaussian/mmd_gaussian.pth
 
   optim_g:
     type: Adam

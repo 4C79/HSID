@@ -24,6 +24,12 @@ from .videomamba import VideoMamba
 """ Models
 """
 
+    # if method == 'mst_s':
+    #     model = MST(dim=28, stage=2, num_blocks=[2, 2, 2]).cuda()
+    # elif method == 'mst_m':
+    #     model = MST(dim=28, stage=2, num_blocks=[2, 4, 4]).cuda()
+    # elif method == 'mst_l':
+    #     model = MST(dim=28, stage=2, num_blocks=[4, 7, 5]).cuda()
 
 def rnnmmd():
     net = rnnMamba(
@@ -97,7 +103,7 @@ def mmd():
         img_size=64,
         patch_size=1,
         in_chans=31,
-        embed_dim=92,
+        embed_dim=48,
         depths=(4,4,4),
         drop_rate=0.,
         d_state = 16,

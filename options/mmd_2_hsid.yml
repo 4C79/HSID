@@ -1,11 +1,11 @@
 # general settings for HSI denoising training
 name: Mambad_basic_hsid
 arch: mmd
-prefix: mmd_blind_3e4_0.68
+prefix: mmd_test
 mode: train
 
 # net settings
-gpu_ids: 4
+gpu_ids: 2
 batchSize: 8
 lr: !!float 3e-4
 cpu: False
@@ -13,7 +13,7 @@ manual_seed: 2018
 threads: 1
 
 # test settings  /data3/jiahua/ly/test_data/kaist_1024_complex/1024_deadline
-testDir: /data3/jiahua/ly/test_data/icvl_test_gaussian/512_10/
+testDir: /data3/jiahua/ly/test_data/icvl_added_noise_new/512_poisson/
 
 # training settings
 train:
@@ -40,7 +40,7 @@ train:
   
   resume_opt:
     resume: False
-    resumePath: /data3/jiahua/fidnet_cmp_checkpoints/mmd/mmd_blind_3e4/model_best.pth
+    resumePath: /home/jiahua/HSID/checkpoints/compare_methods_icvl_complex/mmd_complex.pth
 
   optim_g:
     type: Adam
